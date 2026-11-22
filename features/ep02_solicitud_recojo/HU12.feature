@@ -1,16 +1,11 @@
-Feature: Registrar punto de recojo
+Feature: HU12 - Verificar formalización del reciclador
 
-  Como responsable de un negocio, quiero indicar la dirección del
-  punto de recojo y una referencia, para que el reciclador ubique
-  fácilmente mi negocio.
+  Scenario: Formalización verificada
+    Given el reciclador ha registrado sus documentos de formalización
+    When EcoLoop confirma su validez mediante el mecanismo de verificación establecido
+    Then habilita su cuenta para atender solicitudes de recojo.
 
-  Scenario: Registrar punto de recojo con datos válidos
-    Given que el negocio está registrando el punto de recojo
-    When guarda la dirección y, si corresponde, una referencia
-    Then se guarda la dirección de Surco con la referencia opcional
-
-  Scenario: Dirección de recojo faltante
-    Given que falta la dirección de recojo
-    When intenta guardar el punto de recojo
-    Then se señala el campo obligatorio
-    And no se guarda la solicitud
+  Scenario: Formalización no verificada
+    Given el reciclador ha registrado sus documentos
+    When EcoLoop no puede confirmar su formalización
+    Then mantiene restringida su cuenta e informa el resultado de la verificación.

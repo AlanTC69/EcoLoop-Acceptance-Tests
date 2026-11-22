@@ -1,17 +1,13 @@
-Feature: Revisar resumen de solicitud
+Feature: HU14 - Consultar normas de reciclaje actualizadas
 
-  Como responsable de un negocio, quiero revisar el resumen de mi
-  solicitud antes de enviarla, para detectar errores en los datos
-  que registré.
+  Scenario: Consultar normas disponibles
+    Given el usuario ingresa a la sección de normas de reciclaje
+    When solicita consultar la información de Santiago de Surco
+    Then EcoLoop muestra las normas registradas
+    And muestra su fuente oficial.
 
-  Scenario: Revisar resumen de solicitud con datos válidos
-    Given que el negocio completó los datos de su solicitud
-    When abre el resumen antes de enviarla
-    Then se muestran materiales, cantidades, dirección, fecha y franja
-    And se ofrece una opción para volver y corregir los datos
+  Scenario: Información no disponible
+    Given el usuario ingresa a la sección de normas
+    When no existe información normativa disponible o actualizada
+    Then EcoLoop informa que no puede mostrar información vigente.
 
-  Scenario: Corrección desde el resumen
-    Given que el negocio detecta una cantidad errónea en el resumen
-    When vuelve al paso de materiales y corrige la cantidad
-    Then se conserva el resto de los datos
-    And al regresar al resumen se muestra la cantidad corregida

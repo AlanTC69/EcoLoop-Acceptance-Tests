@@ -15,3 +15,4 @@ Feature: Consultar detalle de solicitudes
     When intenta abrir esa solicitud
     Then se deniega el acceso
     And no se muestran datos del otro negocio
+

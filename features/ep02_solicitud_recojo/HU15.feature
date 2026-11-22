@@ -1,17 +1,14 @@
-Feature: Enviar solicitud de recojo
+Feature: HU15 - Responder reclamos de un recojo
 
-  Como responsable de un negocio, quiero enviar mi solicitud de recojo,
-  para dejar constancia de mi pedido y que los recicladores puedan
-  atenderlo.
+  Scenario: Responder un reclamo asignado
+    Given un negocio registró un reclamo sobre un recojo atendido por el reciclador
+    When el reciclador consulta el reclamo
+    And registra su respuesta
+    And actualiza el estado
+    Then EcoLoop guarda la respuesta
+    And muestra el estado de atención al negocio.
 
-  Scenario: Enviar solicitud de recojo con datos válidos
-    Given que el negocio revisó el resumen de su solicitud
-    When confirma el envío con todos los datos obligatorios
-    Then se crea una sola solicitud en estado pendiente de aceptación
-    And se muestra su código
-
-  Scenario: Datos incompletos o envío repetido
-    Given que falta un dato obligatorio o la misma solicitud ya fue enviada
-    When intenta enviar la solicitud o pulsa de nuevo el botón de envío
-    Then no se crea una solicitud incompleta ni duplicada
-    And se informa el resultado
+  Scenario: Reclamo ajeno al reciclador
+    Given existe un reclamo sobre un recojo atendido por otro reciclador
+    When el reciclador intenta responderlo
+    Then EcoLoop impide que modifique ese reclamo.
